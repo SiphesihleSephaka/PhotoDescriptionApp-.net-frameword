@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PhotoDescriptionApp.Models.ImageMetadata>
+
+@{
+    ViewData["Title"] = "History";
+}
+
+<h2>History</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Thumbnail</th>
+            <th>Searched Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImageUrl" alt="Image Thumbnail" class="history-thumbnail" />
+                </td>
+                <td>@item.UploadDate.ToString("MMMM dd, yyyy HH:mm")</td>
+                <td>
+                    <form asp-action="Search" method="post">
+                        <input type="hidden" name="imageUrl" value="@item.ImageUrl" />
+                        <button type="submit" class="btn btn-primary">Search Again</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .history-thumbnail {
+        width: 100px; /* Thumbnail width */
+        height: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+</style>

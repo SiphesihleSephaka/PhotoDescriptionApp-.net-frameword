@@ -1,0 +1,99 @@
+﻿@model PhotoDescriptionApp.Models.ImageUploadModel
+
+@{
+    ViewData["Title"] = "Upload an Image";
+}
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Welcome to PhotoDescriptionApp!</h1>
+        <p class="lead">Easily upload your image and get a detailed description with just a few clicks.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h3 class="card-title">Upload Your Image</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Index" method="post" enctype="multipart/form-data" onsubmit="showLoadingIndicator()">
+                        <div class="form-group">
+                            <label for="ImageFile">Select Image:</label>
+                            <input type="file" class="form-control-file" asp-for="ImageFile" aria-describedby="imageHelp" />
+                            <small id="imageHelp" class="form-text text-muted">Choose an image file from your computer.</small>
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Upload</button>
+                    </form>
+                </div>
+            </div>
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success mt-3" role="alert">
+                    @ViewBag.Message
+                </div>
+            }
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="loadingIndicator" class="text-center mt-3" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p>Please wait while your image is being uploaded...</p>
+    </div>
+</div>
+
+<style>
+    .display-4 {
+        font-size: 2.5rem;
+        font-weight: 300;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+</style>
+
+<script>
+    function showLoadingIndicator() {
+        document.getElementById('loadingIndicator').style.display = 'block';
+    }
+</script>
